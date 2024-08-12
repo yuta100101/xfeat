@@ -1,7 +1,6 @@
-from typing import Union, List, Optional
+from typing import List, Optional, Union
 
 import optuna
-
 from xfeat.base import OptunaSelectorMixin
 from xfeat.selector._filter import BaseSelectorKBest
 from xfeat.types import XDataFrame
@@ -70,7 +69,7 @@ class KBestThresholdExplorer(OptunaSelectorMixin):
         if "KBestThresholdExplorer.k" in trial.params:
             self._selector.reset_k(int(trial.params["KBestThresholdExplorer.k"]))
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """[summary].
 
         Args:
@@ -86,7 +85,7 @@ class KBestThresholdExplorer(OptunaSelectorMixin):
         if not isinstance(self._trial, optuna.trial.FrozenTrial):
             self._set_params()
 
-        return self._selector.fit_transform(input_df)
+        return self._selector.fit_transform(input_df, y)
 
     def transform(self, input_df: XDataFrame) -> XDataFrame:
         """[summary].

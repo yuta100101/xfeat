@@ -1,12 +1,10 @@
 from logging import getLogger
 from typing import List, Optional
 
-import pandas as pd
 import optuna
-
+import pandas as pd
+from xfeat.base import OptunaSelectorMixin, TransformerMixin
 from xfeat.types import XDataFrame
-from xfeat.base import TransformerMixin, OptunaSelectorMixin
-
 
 logger = getLogger(__name__)
 
@@ -21,7 +19,7 @@ class Pipeline(TransformerMixin):
     def __init__(self, transforms):
         self._transforms = transforms
 
-    def fit(self, input_df: XDataFrame) -> None:
+    def fit(self, input_df: XDataFrame, y=None) -> None:
         """[summary].
 
         Args:
@@ -49,14 +47,14 @@ class Pipeline(TransformerMixin):
             if isinstance(transform, OptunaSelectorMixin):
                 transform.set_trial(trial)
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """[summary].
 
         Args:
             input_df (XDataFrame): [description].
         """
         for transform in self._transforms:
-            input_df = transform.fit_transform(input_df)
+            input_df = transform.fit_transform(input_df, y)
         return input_df
 
     def transform(self, input_df: XDataFrame) -> XDataFrame:

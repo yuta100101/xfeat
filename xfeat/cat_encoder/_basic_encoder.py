@@ -1,13 +1,11 @@
 """Basic categorical encoders."""
-from typing import List, Optional, Dict
+from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
-
-from xfeat.utils import analyze_columns
 from xfeat.base import TransformerMixin
 from xfeat.types import XDataFrame
-from xfeat.utils import cudf_is_available
+from xfeat.utils import analyze_columns, cudf_is_available
 
 try:
     import cudf  # NOQA
@@ -74,7 +72,7 @@ class LabelEncoder(TransformerMixin):
 
         self._uniques: Dict[str, pd.Index] = {}
 
-    def fit(self, input_df: XDataFrame) -> None:
+    def fit(self, input_df: XDataFrame, y=None) -> None:
         """Fit to data frame.
 
         Args:
@@ -97,17 +95,6 @@ class LabelEncoder(TransformerMixin):
                 )
 
             self._uniques[col] = uniques
-
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
-        """Fit to data frame, then transform it.
-
-        Args:
-            input_df (XDataFrame): Input data frame.
-        Returns:
-            XDataFrame : Output data frame.
-        """
-        self.fit(input_df)
-        return self.transform(input_df)
 
     def transform(self, input_df: XDataFrame) -> XDataFrame:
         """Transform data frame.
@@ -174,7 +161,7 @@ class SelectCategorical(TransformerMixin):
         self._exclude_cols = exclude_cols or []
         self._selected: List[str] = []
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:

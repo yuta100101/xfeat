@@ -1,17 +1,15 @@
 """Module for TargetEncoder."""
-from typing import Optional, List, Dict
+from typing import Dict, List, Optional
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 from sklearn.base import BaseEstimator
 from sklearn.base import TransformerMixin as SKTransformerMixin
 from sklearn.model_selection import KFold
-from sklearn.utils.validation import column_or_1d, check_is_fitted
-
-from xfeat.types import XDataFrame, XSeries, CSeries, XNDArray
+from sklearn.utils.validation import check_is_fitted, column_or_1d
 from xfeat.base import TransformerMixin
+from xfeat.types import CSeries, XDataFrame, XNDArray, XSeries
 from xfeat.utils import cudf_is_available
-
 
 try:
     import cudf  # NOQA
@@ -113,7 +111,7 @@ class TargetEncoder(TransformerMixin):
             # TODO(smly): Add error message
             raise RuntimeError
 
-    def fit(self, input_df: XDataFrame) -> None:
+    def fit(self, input_df: XDataFrame, y=None) -> None:
         """Transform data frame.
 
         Args:
@@ -158,7 +156,7 @@ class TargetEncoder(TransformerMixin):
 
         return out_df
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:

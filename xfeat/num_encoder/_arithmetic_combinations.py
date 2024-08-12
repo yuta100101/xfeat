@@ -2,9 +2,8 @@
 from itertools import combinations
 
 import pandas as pd
-
-from xfeat.types import XDataFrame
 from xfeat.base import TransformerMixin
+from xfeat.types import XDataFrame
 
 
 class ArithmeticCombinations(TransformerMixin):
@@ -57,7 +56,7 @@ class ArithmeticCombinations(TransformerMixin):
         self._operator = operator
         self._drop_origin = drop_origin
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:

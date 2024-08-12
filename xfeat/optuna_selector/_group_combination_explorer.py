@@ -1,9 +1,8 @@
 """Module for GroupCombinationExplorer."""
-from typing import Any, List, Dict
+from typing import Any, Dict, List
 
-import pandas as pd
 import optuna
-
+import pandas as pd
 from xfeat.base import OptunaSelectorMixin
 from xfeat.types import XDataFrame
 
@@ -95,7 +94,7 @@ class GroupCombinationExplorer(OptunaSelectorMixin):
                 # TODO(smly): Make this better.
                 raise RuntimeError("Invalid paramter found.")
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """[summary].
 
         Args:
