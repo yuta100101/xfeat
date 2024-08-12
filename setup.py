@@ -1,7 +1,6 @@
 from typing import List
 
-from setuptools import find_packages
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
 def get_install_requires() -> List[str]:
@@ -11,6 +10,7 @@ def get_install_requires() -> List[str]:
         "optuna>=1.3.0",
         "lightgbm",
         "scikit-learn",
+        "pandas",
         "pyarrow",
     ]
 
@@ -28,8 +28,6 @@ setup(
     author_email="ozaki@preferred.jp",
     packages=find_packages(),
     install_requires=get_install_requires(),
-    tests_require=get_tests_require(),
-    setup_requires=["pytest-runner"],
     extras_require={"develop": ["pytest"]},
     entry_points={"console_scripts": []},
 )

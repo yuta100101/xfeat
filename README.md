@@ -161,5 +161,6 @@ If you want to use GPUs, cuDF and CuPy are required. See the [cuDF installation 
 ### For Developers
 
 ```
-$ python setup.py test
+$ pip install -e .[develop]
+$ pytest
 ```
