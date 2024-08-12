@@ -1,9 +1,8 @@
 """User defined label encoder."""
-from typing import Dict, List, Any, Optional
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 import pandas as pd
-
 from xfeat.base import TransformerMixin
 from xfeat.types import XDataFrame
 
@@ -46,7 +45,7 @@ class UserDefinedLabelEncoder(TransformerMixin):
         self._labels: Dict[str, List[Any]] = {}
         self._uniques: Dict[str, pd.Index] = {}
 
-    def fit(self, input_df: XDataFrame) -> None:
+    def fit(self, input_df: XDataFrame, y=None) -> None:
         """Fit to data frame.
 
         Args:
@@ -61,17 +60,6 @@ class UserDefinedLabelEncoder(TransformerMixin):
             uniques = pd.Index(list(self._label_mapping.keys()))
             self._labels[col] = labels
             self._uniques[col] = uniques
-
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
-        """Fit to data frame, then transform it.
-
-        Args:
-            input_df (XDataFrame): Input data frame.
-        Returns:
-            XDataFrame : Output data frame.
-        """
-        self.fit(input_df)
-        return self.transform(input_df)
 
     def transform(self, input_df: XDataFrame) -> XDataFrame:
         """Transform data frame.

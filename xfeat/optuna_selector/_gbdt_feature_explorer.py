@@ -1,12 +1,10 @@
-from typing import Tuple, Any, Dict, List
+from typing import Any, Dict, List, Tuple
 
 import optuna
 import pandas as pd
-
 from xfeat.base import OptunaSelectorMixin
 from xfeat.selector import GBDTFeatureSelector
 from xfeat.types import XDataFrame
-
 
 _DEFAULT_THRESHOLD = 0.9
 _LGBM_DEFAULT_PARAMS = {
@@ -87,7 +85,7 @@ class GBDTFeatureExplorer(GBDTFeatureSelector, OptunaSelectorMixin):
         if "GBDTFeatureSelector.threshold" in trial.params:
             self._threshold = trial.params["GBDTFeatureSelector.threshold"]
 
-    def fit(self, input_df: XDataFrame) -> None:
+    def fit(self, input_df: XDataFrame, y=None) -> None:
         if self._booster is not None and self._fit_once:
             self.select_cols_count = int(
                 self._threshold * len(self._input_cols))

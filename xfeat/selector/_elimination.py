@@ -3,7 +3,6 @@ from xfeat.base import SelectorMixin
 from xfeat.types import XDataFrame
 from xfeat.utils import analyze_columns, cudf_is_available
 
-
 try:
     import cudf  # NOQA
 except ImportError:
@@ -17,7 +16,7 @@ class DuplicatedFeatureEliminator(SelectorMixin):
         """[summary]."""
         self._selected_cols = []
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:
@@ -55,7 +54,7 @@ class ConstantFeatureEliminator(SelectorMixin):
         """[summary]."""
         self._selected_cols = []
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:

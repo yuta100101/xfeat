@@ -1,17 +1,12 @@
 """Filter-based feature selection methods."""
-from typing import List
 from logging import getLogger
+from typing import List
 
-from sklearn.feature_selection import chi2
-from sklearn.feature_selection import f_classif
-from sklearn.feature_selection import f_regression
-from sklearn.feature_selection import mutual_info_classif
-from sklearn.feature_selection import SelectKBest
-
-from xfeat.utils import analyze_columns, is_cudf
+from sklearn.feature_selection import (SelectKBest, chi2, f_classif,
+                                       f_regression, mutual_info_classif)
 from xfeat.base import SelectorMixin
 from xfeat.types import XDataFrame
-
+from xfeat.utils import analyze_columns, is_cudf
 
 logger = getLogger(__name__)
 
@@ -64,7 +59,7 @@ class BaseSelectorKBest(SelectorMixin):
         if self._internal_selector:
             self._internal_selector.k = k
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:
@@ -147,7 +142,7 @@ class SpearmanCorrelationEliminator(SelectorMixin):
         self._selected_cols = []
         self._threshold = threshold
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:

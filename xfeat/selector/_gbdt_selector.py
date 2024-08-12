@@ -4,11 +4,8 @@ from typing import List
 
 import lightgbm as lgb
 import pandas as pd
-
-
 from xfeat.base import SelectorMixin
 from xfeat.types import XDataFrame
-
 
 _LGBM_DEFAULT_PARAMS = {
     "objective": "regression",
@@ -55,7 +52,7 @@ class GBDTFeatureSelector(SelectorMixin):
         self._selected_cols = None
         self.select_cols_count = None
 
-    def fit(self, input_df: XDataFrame) -> None:
+    def fit(self, input_df: XDataFrame, y=None) -> None:
         """[summary].
 
         Args:
@@ -96,17 +93,6 @@ class GBDTFeatureSelector(SelectorMixin):
             raise RuntimeError("Call fit() before transform().")
 
         return input_df[self._selected_cols]
-
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
-        """[summary].
-
-        Args:
-            input_df (XDataFrame): [description].
-        Returns:
-            XDataFrame : [description].
-        """
-        self.fit(input_df)
-        return self.transform(input_df)
 
     def get_selected_cols(self) -> List[str]:
         """[summary].

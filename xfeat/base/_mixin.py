@@ -1,15 +1,14 @@
 import importlib
-from typing import Any, List, Dict
+from typing import Any, Dict, List
 
 import optuna
-
 from xfeat.types import XDataFrame
 
 
 class TransformerMixin:
     """Mixin class for `xfeat.encoder`."""
 
-    def fit(self, input_df: XDataFrame) -> None:
+    def fit(self, input_df: XDataFrame, y=None) -> None:
         """Fit to data frame.
 
         Args:
@@ -27,7 +26,7 @@ class TransformerMixin:
         """
         raise NotImplementedError("Not implemented yet.")
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:
@@ -35,7 +34,7 @@ class TransformerMixin:
         Returns:
             XDataFrame : Output data frame.
         """
-        self.fit(input_df)
+        self.fit(input_df, y)
         return self.transform(input_df)
 
 
@@ -53,7 +52,7 @@ class OptunaSelectorMixin:
         cls = getattr(mod, class_name)
         return cls
 
-    def fit(self, input_df: XDataFrame) -> None:
+    def fit(self, input_df: XDataFrame, y=None) -> None:
         """Fit to data frame.
 
         Args:
@@ -71,7 +70,7 @@ class OptunaSelectorMixin:
         """
         raise NotImplementedError("Not implemented yet.")
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:
@@ -79,7 +78,7 @@ class OptunaSelectorMixin:
         Returns:
             XDataFrame : Output data frame.
         """
-        self.fit(input_df)
+        self.fit(input_df, y)
         return self.transform(input_df)
 
     def set_trial(self, trial):
@@ -114,7 +113,7 @@ class OptunaSelectorMixin:
 class SelectorMixin:
     """Mixin class for `xfeat.selector`."""
 
-    def fit(self, input_df: XDataFrame) -> None:
+    def fit(self, input_df: XDataFrame, y=None) -> None:
         """Fit to data frame.
 
         Args:
@@ -132,7 +131,7 @@ class SelectorMixin:
         """
         raise NotImplementedError("Not implemented yet.")
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:
@@ -140,5 +139,5 @@ class SelectorMixin:
         Returns:
             XDataFrame : Output data frame.
         """
-        self.fit(input_df)
+        self.fit(input_df, y)
         return self.transform(input_df)

@@ -1,15 +1,13 @@
 """Modue for CountEncoder."""
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
-
 from sklearn.base import BaseEstimator
 from sklearn.base import TransformerMixin as SKTransformerMixin
-from sklearn.utils.validation import column_or_1d, check_is_fitted
-
-from xfeat.types import XDataFrame
+from sklearn.utils.validation import check_is_fitted, column_or_1d
 from xfeat.base import TransformerMixin
+from xfeat.types import XDataFrame
 from xfeat.utils import cudf_is_available
 
 try:
@@ -63,7 +61,7 @@ class CountEncoder(TransformerMixin):
         self._output_suffix = output_suffix
         self._count_encoders: Dict[str, _CountEncoder] = {}
 
-    def fit(self, input_df: XDataFrame) -> None:
+    def fit(self, input_df: XDataFrame, y=None) -> None:
         """Transform data frame.
 
         Args:
@@ -100,7 +98,7 @@ class CountEncoder(TransformerMixin):
 
         return new_df
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:

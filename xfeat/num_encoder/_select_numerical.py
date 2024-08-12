@@ -2,10 +2,9 @@
 from typing import List, Optional
 
 import pandas as pd
-
-from xfeat.utils import analyze_columns
 from xfeat.base import TransformerMixin
 from xfeat.types import XDataFrame
+from xfeat.utils import analyze_columns
 
 
 class SelectNumerical(TransformerMixin):
@@ -38,7 +37,7 @@ class SelectNumerical(TransformerMixin):
         self._exclude_cols = exclude_cols or []
         self._selected: List[str] = []
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:

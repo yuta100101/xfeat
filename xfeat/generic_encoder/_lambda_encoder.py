@@ -1,10 +1,8 @@
 """Encoders for categorial and numerical columns."""
 import pandas as pd
-
-from xfeat.types import XDataFrame
 from xfeat.base import TransformerMixin
+from xfeat.types import XDataFrame
 from xfeat.utils import cudf_is_available
-
 
 try:
     import cudf  # NOQA
@@ -42,7 +40,7 @@ class LambdaEncoder(TransformerMixin):
         self._fillna = fillna
         self._drop_origin = drop_origin
 
-    def fit_transform(self, input_df: XDataFrame) -> XDataFrame:
+    def fit_transform(self, input_df: XDataFrame, y=None) -> XDataFrame:
         """Fit to data frame, then transform it.
 
         Args:
